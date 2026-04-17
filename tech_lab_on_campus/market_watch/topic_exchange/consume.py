@@ -14,19 +14,27 @@
 
 import argparse
 import sys
+from typing import List
 
 from solution.consumer_sol import mqConsumer  # pylint: disable=import-error
 
-def main(sector: str, queueName: str) -> None:
+def main(sectors: List[str], stocks: List[str], queueName: str) -> None:
     
     # Implement Logic to Create Binding Key from the ticker and sector variable -  Step 2
     #
     #                       WRITE CODE HERE!!!
     #
-    bindingKey = f"*.{sector}"
+    # bindingKey = f"*.{sector}"
+
 
     
-    consumer = mqConsumer(binding_key=bindingKey,exchange_name="Tech Lab Topic Exchange",queue_name=queueName)    
+    # consumer = mqConsumer(binding_key=bindingKey,exchange_name="Tech Lab Topic Exchange",queue_name=queueName)    
+    consumer = mqConsumer(exchange_name="Tech Lab Topic Exchange")    
+    consumer.createQueue(queueName)
+    for sector in sectors:
+        consumer.bindQueueToExchange(queueName, f"*.{sector}")
+    for stock in stocks:
+        consumer.bindQueueToExchange(queueName, f"{stock}.*")
     consumer.startConsuming()
     
 
@@ -37,12 +45,13 @@ if __name__ == "__main__":
     #
     #                       WRITE CODE HERE!!!
     #
-    if len(sys.argv) != 3:
-        print("Expected 2 arguments: sector, queue_name")
+    if len(sys.argv) != 4:
+        print("Expected 3 arguments: sector, stocks, queue_name")
         sys.exit(1)
 
-    sector = sys.argv[1]
-    queue = sys.argv[2]
+    sectors = sys.argv[1].split(",")
+    stocks = sys.argv[2].split(",")
+    queue = sys.argv[3]
 
 
-    sys.exit(main(sector,queue))
+    sys.exit(main(sectors,stocks,queue))
