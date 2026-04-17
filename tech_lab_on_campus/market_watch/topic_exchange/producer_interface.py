@@ -13,7 +13,7 @@
 # limitations under the License.
 
 class mqProducerInterface:
-    def __init__(self, exchange_name: str) -> None:
+    def __init__(self, routing_key: str, exchange_name: str) -> None:
         # Save parameters to class variables
 
         # Call setupRMQConnection

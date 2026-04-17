@@ -41,8 +41,8 @@ if __name__ == "__main__":
         print("Expected 2 arguments: sector, queue_name")
         sys.exit(1)
 
-    sector = sys.argv[0]
-    queue = sys.argv[1]
+    sector = sys.argv[1]
+    queue = sys.argv[2]
 
 
     sys.exit(main(sector,queue))
