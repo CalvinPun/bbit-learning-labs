@@ -24,7 +24,7 @@ class mqConsumerInterface:
 
     def setupRMQConnection(self) -> None:
         # Set-up Connection to RabbitMQ service
-
+    
         # Establish Channel
 
         # Create Queue if not already present
