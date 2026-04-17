@@ -23,6 +23,8 @@ def main(sector: str, queueName: str) -> None:
     #
     #                       WRITE CODE HERE!!!
     #
+    bindingKey = f"*.{sector}"
+
     
     consumer = mqConsumer(binding_key=bindingKey,exchange_name="Tech Lab Topic Exchange",queue_name=queueName)    
     consumer.startConsuming()
@@ -35,5 +37,12 @@ if __name__ == "__main__":
     #
     #                       WRITE CODE HERE!!!
     #
+    if len(sys.argv) != 2:
+        print("Expected 2 arguments: sector, queue_name")
+        sys.exit(1)
+
+    sector = sys.argv[0]
+    queue = sys.argv[1]
+
 
     sys.exit(main(sector,queue))
