@@ -28,7 +28,7 @@ class mqConsumer(mqConsumerInterface):
             exchange= self.exchange_name,
         )
         self.channel.basic_consume(
-            "Queue Name", self.on_message_callback , auto_ack=False
+            self.queue_name, self.on_message_callback , auto_ack=False
         )
         pass
 
